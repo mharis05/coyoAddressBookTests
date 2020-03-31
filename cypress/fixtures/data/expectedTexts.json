@@ -1,0 +1,16 @@
+{
+  "homePage": {
+    "welcomeTitle": "Welcome to Address Book",
+    "welcomeSubtitle": "A simple web app for showing off your testing",
+    "HomePageLinkLabel": "Home",
+    "SignInLinkLabel": "Sign in"
+  },
+  "signInPage": {
+    "signInTitle": "Sign in"
+  },
+  "signUpPage": {
+    "signUpTitle": "Sign up",
+    "signInLinkText": "Sign in"
+    
+  }
+}

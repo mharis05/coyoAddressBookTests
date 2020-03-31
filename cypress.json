@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://a.testaddressbook.com/",
+  "viewportWidth": 1280,
+  "viewportHeight": 720,
+  "video": false,
+  "animationDistanceThreshold": 100
+}

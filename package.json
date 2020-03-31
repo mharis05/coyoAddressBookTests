@@ -1,0 +1,15 @@
+{
+  "name": "coyoaddressbooktests",
+  "version": "1.0.0",
+  "description": "Test suite for coyo address book app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Haris Saleem",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^4.2.0",
+    "node-random-name": "^1.0.1"
+  }
+}
