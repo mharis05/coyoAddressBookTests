@@ -11,6 +11,20 @@
   "signUpPage": {
     "signUpTitle": "Sign up",
     "signInLinkText": "Sign in"
-    
+  },
+  "loggedInHomePage": {
+    "addressesLabel": "Addresses",
+    "signOutTopLabel": "Sign out"
+  },
+  "addressBookPage": {
+    "mainTitleText": "Addresses",
+    "addNewAddressLink": "New Address",
+    "signInLink": "Sign In"
+  },
+  "newAddressPage": {
+  },
+  "addressDetailsPage": {
+    "alertMessage": "Address was successfully created.",
+    "errorExplanation": " errors prohibited this address from being saved"
   }
 }

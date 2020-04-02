@@ -1,5 +1,4 @@
 import * as locators from '../fixtures/locators/signInPageLocators'
-import {registerNewUser} from '../support/customMethods'
 
 describe('Autentication Module Tests', function () {
 let signInPageTexts

@@ -33,5 +33,4 @@ describe("Welcome Page Tests", function () {
     cy.get(locators.homePageLink).should('have.attr', 'href').and('equal', '/')
 
   })
-
 }) 

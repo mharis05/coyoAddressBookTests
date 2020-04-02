@@ -1,25 +1,9 @@
-var random_name = require('node-random-name')
-var locators = require('../fixtures/locators/registrationPageLocators')
-
-export function generateRandomData(type) {
-  switch (type) {
-    case "email":
-      return (random_name({ first: true }).trim()
-        .concat(random_name({ last: true })).trim()
-        .concat("@test.com")).toLowerCase()
-
-    case "firstname":
-      return random_name({ first: true })
-
-    case "lastname":
-      return random_name({ last: true })
-
-  }
-}
+var faker = require('faker')
+var signUplocators = require('../fixtures/locators/registrationPageLocators')
 
 export function createNewUser(emailType = 'valid', passwordType = 'valid') {
-  var firstName = random_name({ first: true }).trim()
-  var lastName = random_name({ last: true }).trim()
+  var firstName = faker.name.firstName().trim()
+  var lastName = faker.name.lastName().trim()
   var email = createEmail(emailType, firstName, lastName)
   var password = createPassword(passwordType)
   return {
@@ -29,6 +13,62 @@ export function createNewUser(emailType = 'valid', passwordType = 'valid') {
     fullName: firstName + " " + lastName,
     password: password
   }
+}
+
+export function createAddressData(type) {
+  var addressData = {
+
+    requiredData: function () {
+      return {
+        firstName: faker.name.firstName().trim(),
+        lastName: faker.name.lastName().trim(),
+        address1: faker.address.streetAddress(),
+        city: faker.address.city(),
+        zipCode: faker.address.zipCode(),
+      }
+    },
+    allData: function () {
+      // For birthday
+      var start = new Date(1900, 0, 1)
+      var end = new Date()
+      // create object for required data
+      var required = this.requiredData()
+      return {
+        //destructure object
+        ...required,
+        //optional
+        address2: faker.address.streetName(false),
+        state: faker.address.state(),
+        country: 'us',
+        birthday: Cypress.moment(randomDate(start, end)).format('YYYY-MM-DD'),
+        color: "#" + Math.random().toString(16).slice(2, 8),
+        age: faker.random.number(100),
+        website: "http://www." + faker.internet.domainName() + faker.internet.domainSuffix(),
+        phone: faker.phone.phoneNumberFormat(),
+        interest: selectInterest(0, 2),
+        note: faker.lorem.sentence()
+      }
+    }
+  };
+
+  if (type == 'required') {
+    return addressData.requiredData()
+  }
+  else {
+    return addressData.allData()
+  }
+
+}
+
+function randomDate(start, end) {
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+}
+
+function selectInterest(min, max) {
+  var selection = Math.floor(
+    Math.random() * (max - min) + min
+  )
+  return selection
 }
 
 export function createEmail(type, firstName, lastName) {
@@ -51,6 +91,6 @@ export function createPassword(type) {
 export function registerNewUser() {
   cy.openAddressBookPage("sign_up")
   var user = createNewUser()
-  cy.signUpUser(locators, user)
+  cy.signUpUser(signUplocators, user)
   return user
 }
