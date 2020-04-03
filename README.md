@@ -10,7 +10,7 @@ E2E Test suite built on Cypress.io using nodeJS
 - run `npx cypress run`
 
 ### To run single spec:
-- run `npx cypress run --spec "cypress/integration/<spec-name.js>"
+- run `npx cypress run --spec "cypress/integration/<spec-name.js>"`
 
 ### To run in headed mode:
 - run `npx cypress run --headed`
