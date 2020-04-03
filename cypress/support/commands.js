@@ -1,5 +1,6 @@
 import * as signInlocators from '../fixtures/locators/signInPageLocators'
 import * as newAddressPageLocators from '../fixtures/locators/newAddressPageLocators'
+import { createAddressData } from './customMethods'
 
 Cypress.Commands.add("setViewPort", () => {
   cy.viewport(screen.width, screen.height)
@@ -18,6 +19,13 @@ Cypress.Commands.add("openAddressBookPage", (page) => {
   }
 })
 
+Cypress.Commands.add("createNewAddress", (type) => {
+  cy.openAddressBookPage("addresses/new")
+  var addressData = createAddressData(type)
+  cy.enterAddressData(type, addressData)
+  cy.openAddressBookPage("addresses")
+})
+
 Cypress.Commands.add("signUpUser", (locators, user) => {
   cy.get(locators.emailTxt).type(user.email)
   if (user.password != "") {
@@ -26,11 +34,16 @@ Cypress.Commands.add("signUpUser", (locators, user) => {
   cy.get(locators.submitBtn).contains("Sign up").click()
 })
 
-Cypress.Commands.add("signInUser", () => {
-  cy.fixture('../fixtures/data/userData.json').then(function (data) {
-    cy.openAddressBookPage("sign_in")
-    cy.get(signInlocators.emailTxt).type(data.email)
-    cy.get(signInlocators.passwordTxt).type(data.password)
+Cypress.Commands.add("signInUser", (userCredentials) => {
+  cy.clearCookies()
+  cy.fixture('../fixtures/data/userData.json').as('data')
+  cy.openAddressBookPage("sign_in")
+  cy.get('@data').then((dataValues) => {
+    if(userCredentials != undefined){
+      dataValues = userCredentials
+    }
+    cy.get(signInlocators.emailTxt).type(dataValues.email)
+    cy.get(signInlocators.passwordTxt).type(dataValues.password)
     cy.get(signInlocators.submitBtn).click()
   })
 })
@@ -45,32 +58,10 @@ Cypress.Commands.add("enterAddressData", (type, data) => {
   cy.get(newAddressPageLocators.submitButton).click()
 })
 
-export function enterRequiredData(addressData) {
-  cy.get(newAddressPageLocators.firstNameTxt).type(addressData.firstName)
-  cy.get(newAddressPageLocators.lastNameTxt).type(addressData.lastName)
-  cy.get(newAddressPageLocators.address1Txt).type(addressData.address1)
-  cy.get(newAddressPageLocators.cityTxt).type(addressData.city)
-  cy.get(newAddressPageLocators.zipCodeTxt).type(addressData.zipCode)
-}
-
-export function enterOptionalData(addressData) {
-  cy.get(newAddressPageLocators.address2Txt).type(addressData.address2)
-  cy.get(newAddressPageLocators.stateSelect).select(addressData.state)
-  console.log("select state: ", addressData.state)
-  cy.get(newAddressPageLocators.countryUSRadio).check()
-  cy.get(newAddressPageLocators.birthdayDate).type(addressData.birthday)
-  cy.get(newAddressPageLocators.colorSelect)
-    .invoke('val', addressData.color)
-    .trigger('change')
-  cy.get(newAddressPageLocators.ageTxt).type(addressData.age)
-  cy.get(newAddressPageLocators.websiteTxt).type(addressData.website)
-  cy.get(newAddressPageLocators.phoneTxt).type(addressData.phone)
-  cy.get(newAddressPageLocators.interestCheckboxGroup).then(($checkboxes) => {
-    cy.get($checkboxes[addressData.interest]).check()
-  })
-  cy.get(newAddressPageLocators.noteTxt).type(addressData.note)
-}
-
+Cypress.Commands.add("verifyValueVisibility", (value) => {
+  cy.xpath(`.//td[contains(text(),'${value}')]`)
+    .should('be.visible')
+})
 
 Cypress.Commands.add("assertTextEquivalence", (locator, expectedText) => {
   cy.get(locator).should(($element) => {
@@ -78,3 +69,29 @@ Cypress.Commands.add("assertTextEquivalence", (locator, expectedText) => {
     assert.equal(actualText, expectedText);
   })
 })
+
+export function enterRequiredData(addressData) {
+  cy.get(newAddressPageLocators.firstNameTxt).clear().type(addressData.firstName)
+  cy.get(newAddressPageLocators.lastNameTxt).clear().type(addressData.lastName)
+  cy.get(newAddressPageLocators.address1Txt).clear().type(addressData.address1)
+  cy.get(newAddressPageLocators.cityTxt).clear().type(addressData.city)
+  cy.get(newAddressPageLocators.zipCodeTxt).clear().type(addressData.zipCode)
+}
+
+export function enterOptionalData(addressData) {
+  cy.get(newAddressPageLocators.address2Txt).clear().type(addressData.address2)
+  cy.get(newAddressPageLocators.stateSelect).select(addressData.state)
+  console.log("select state: ", addressData.state)
+  cy.get(newAddressPageLocators.countryUSRadio).check()
+  cy.get(newAddressPageLocators.birthdayDate).clear().type(addressData.birthday)
+  cy.get(newAddressPageLocators.colorSelect)
+    .invoke('val', addressData.color)
+    .trigger('change')
+  cy.get(newAddressPageLocators.ageTxt).clear().type(addressData.age)
+  cy.get(newAddressPageLocators.websiteTxt).clear().type(addressData.website)
+  cy.get(newAddressPageLocators.phoneTxt).clear().type(addressData.phone)
+  cy.get(newAddressPageLocators.interestCheckboxGroup).then(($checkboxes) => {
+    cy.get($checkboxes[addressData.interest]).check()
+  })
+  cy.get(newAddressPageLocators.noteTxt).clear().type(addressData.note)
+}

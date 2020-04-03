@@ -1,14 +1,15 @@
 import * as locators from '../fixtures/locators/signInPageLocators'
+import {userAccountLabel} from '../fixtures/locators/registrationPageLocators'
 
 describe('Autentication Module Tests', function () {
-let signInPageTexts
-let userData
+  let signInPageTexts
+  let userData
 
   before(function () {
     cy.fixture('data/expectedTexts.json').then(function (jsonData) {
       signInPageTexts = jsonData.signInPage
     })
-    cy.fixture('data/userData.json').then(function(jsonData) {
+    cy.fixture('data/userData.json').then(function (jsonData) {
       userData = jsonData
     })
   })
@@ -37,7 +38,22 @@ let userData
     cy.get(locators.emailTxt).type(userData.email)
     cy.get(locators.passwordTxt).type(userData.password)
     cy.get(locators.submitBtn).click().then(() => {
-      cy.get("[data-test='current-user']").should('have.text', userData.email)
+      cy.get(userAccountLabel).should('have.text', userData.email)
     })
   })
+
+  it('Validate that error message is displayed if no password is provided', function () {
+    cy.get(locators.emailTxt).type(userData.email)
+    cy.get(locators.submitBtn).click().then(() => {
+      cy.get(locators.errorMessage).should('have.text', signInPageTexts.signInErrorText)
+    })
+  })
+
+  it('Validate that error message is displayed if no email is provided', function () {
+    cy.get(locators.passwordTxt).type(userData.password)
+    cy.get(locators.submitBtn).click().then(() => {
+      cy.get(locators.errorMessage).should('have.text', signInPageTexts.signInErrorText)
+    })
+  })
+
 })

@@ -6,7 +6,8 @@
     "SignInLinkLabel": "Sign in"
   },
   "signInPage": {
-    "signInTitle": "Sign in"
+    "signInTitle": "Sign in",
+    "signInErrorText": "Bad email or password."
   },
   "signUpPage": {
     "signUpTitle": "Sign up",
@@ -16,15 +17,21 @@
     "addressesLabel": "Addresses",
     "signOutTopLabel": "Sign out"
   },
-  "addressBookPage": {
-    "mainTitleText": "Addresses",
-    "addNewAddressLink": "New Address",
-    "signInLink": "Sign In"
-  },
-  "newAddressPage": {
-  },
   "addressDetailsPage": {
     "alertMessage": "Address was successfully created.",
-    "errorExplanation": " errors prohibited this address from being saved"
+    "errorExplanation": " errors prohibited this address from being saved",
+    "editLink": "Edit",
+    "listLink": "List"
+  },
+  "addressListPage": {
+    "firstNameHeader": "First Name",
+    "lastNameHeader": "Last Name",
+    "cityHeader": "City",
+    "stateHeader": "State",
+    "showAddressLink": "Show",
+    "destroyAddressLink": "Destroy",
+    "editAddressLink": "Edit",
+    "newAddressLink": "New Address",
+    "mainTitleText": "Addresses"
   }
 }

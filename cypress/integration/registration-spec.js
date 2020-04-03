@@ -48,5 +48,10 @@ describe('Tests for Sign Up module', function () {
     cy.signUpUser(locators, user)
     cy.get(locators.signInTopLabel).should('have.text', signUpPageTexts.signInLinkText)
   })
-})
 
+  it.only('Validate that registered user can sign in when their credentials', function(){
+    var user = createNewUser()
+    cy.signUpUser(locators, user)
+    cy.signInUser({email: user.email, password: user.password})
+  })
+})

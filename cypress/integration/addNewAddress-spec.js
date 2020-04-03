@@ -1,5 +1,5 @@
 import * as locators from '../fixtures/locators/newAddressPageLocators'
-import * as addressDetailsLocators from '../fixtures/locators/addressDetailsPageLocators'
+import * as addressDetailsLocators from '../fixtures/locators/addressDetailLocators'
 import { createAddressData } from '../support/customMethods'
 
 describe("Add new Address Tests", function () {

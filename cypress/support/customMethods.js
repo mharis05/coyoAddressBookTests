@@ -1,19 +1,42 @@
 var faker = require('faker')
 var signUplocators = require('../fixtures/locators/registrationPageLocators')
 
+
 export function createNewUser(emailType = 'valid', passwordType = 'valid') {
   var firstName = faker.name.firstName().trim()
   var lastName = faker.name.lastName().trim()
   var email = createEmail(emailType, firstName, lastName)
   var password = createPassword(passwordType)
   return {
-    fname: firstName,
-    lname: lastName,
+    firstName: firstName,
+    lastName: lastName,
     email: email,
     fullName: firstName + " " + lastName,
     password: password
   }
 }
+
+// export function createNewTestUser() {
+//   var newUser = createNewUser('valid','valid')
+
+//   cy.readFile('./cypress/fixtures/data/userData.json').then(($file) => {
+//     $file.firstName = newUser.firstName
+//     $file.lastName = newUser.lastName
+//     $file.email = newUser.email
+//     $file.password = newUser.password
+//     console.log("Writing to file")
+//   cy.writeFile('./cypress/fixtures/data/userData.json',
+//     {
+//       lastName: newUser.lastName,
+//       firstName: newUser.firstName,
+//       email: newUser.email,
+//       password: newUser.password
+//     })
+//   })
+//   cy.openAddressBookPage("sign_up")
+//   cy.signUpUser(signUplocators, newUser)
+  
+// }
 
 export function createAddressData(type) {
   var addressData = {
@@ -61,7 +84,7 @@ export function createAddressData(type) {
 }
 
 function randomDate(start, end) {
-    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
 }
 
 function selectInterest(min, max) {

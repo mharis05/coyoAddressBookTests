@@ -1,4 +1,5 @@
 import * as locators from '../fixtures/locators/welcomePageLocators'
+import { createNewTestUser } from '../support/customMethods'
 
 let homePageTexts
 describe("Welcome Page Tests", function () {
