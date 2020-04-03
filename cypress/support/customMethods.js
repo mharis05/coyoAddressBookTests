@@ -81,9 +81,11 @@ function selectInterest(min, max) {
 // Create a new email for a user
 export function createEmail(type, firstName, lastName) {
   if (type == "valid") {
-    return firstName.trim().toLowerCase() + lastName.trim().toLowerCase() + "@testemail.com"
+    return firstName.replace(/[^a-zA-Z ]/g, "").trim().toLowerCase() 
+    + lastName.replace(/[^a-zA-Z ]/g, "").trim().toLowerCase() + "@testemail.com"
   } else {
-    return firstName.trim().toLowerCase() + lastName.trim().toLowerCase() + ".com"
+    return firstName.replace(/[^a-zA-Z ]/g, "").trim().toLowerCase() 
+    + lastName.replace(/[^a-zA-Z ]/g, "").trim().toLowerCase() + ".com"
   }
 }
 
@@ -100,6 +102,6 @@ export function createPassword(type) {
 export function registerNewUser() {
   cy.openAddressBookPage("sign_up")
   var user = createNewUser()
-  cy.signUpUser(signUplocators, user)
+  cy.signUpUser(user)
   return user
 }

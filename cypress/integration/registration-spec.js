@@ -37,25 +37,25 @@ describe('Tests for Sign Up module', function () {
 
   it('Validate that user can successfully sign up by providing valid credentials', function () {
     var user = createNewUser()
-    cy.signUpUser(locators, user)
+    cy.signUpUser(user)
     cy.get(locators.userAccountLabel).should('have.text', user.email)
   })
 
   it('Validate that user cannot sign up by providing invalid email', function () {
     var user = createNewUser("invalid")
-    cy.signUpUser(locators, user)
+    cy.signUpUser(user)
     cy.get(locators.signInTopLabel).should('have.text', signUpPageTexts.signInLinkText)
   })
 
   it('Validate that user cannot sign without providing a password', function () {
     var user = createNewUser(undefined, "invalid")
-    cy.signUpUser(locators, user)
+    cy.signUpUser(user)
     cy.get(locators.signInTopLabel).should('have.text', signUpPageTexts.signInLinkText)
   })
 
   it('Validate that registered user can sign in when their credentials', function(){
     var user = createNewUser()
-    cy.signUpUser(locators, user)
+    cy.signUpUser(user)
     cy.signInUser({email: user.email, password: user.password})
   })
 })

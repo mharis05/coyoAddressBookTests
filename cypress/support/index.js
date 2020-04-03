@@ -16,6 +16,27 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 require('cypress-xpath')
+import {createNewUser} from './customMethods'
+
+before(function () {
+  // now this runs prior to every test
+  // across all files no matter what
+  var user = createNewUser()
+  cy.writeFile('./cypress/fixtures/data/userData.json',
+    {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      password: user.password
+    })
+  cy.readFile('./cypress/fixtures/data/userData.json').then((user) => {
+    expect(user.firstName).to.equal(user.firstName) 
+    cy.openAddressBookPage("sign_up")
+    cy.signUpUser(user)
+    cy.clearCookies()
+    cy.visit("/")
+  })
+})
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

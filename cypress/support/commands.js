@@ -1,5 +1,6 @@
 import * as signInlocators from '../fixtures/locators/signInPageLocators'
 import * as newAddressPageLocators from '../fixtures/locators/newAddressPageLocators'
+import * as signUplocators from '../fixtures/locators/registrationPageLocators'
 import { createAddressData } from './customMethods'
 
 
@@ -22,7 +23,7 @@ Cypress.Commands.add("openAddressBookPage", (page) => {
       cy.visit("/")
       break;
     default:
-      cy.visit("/" + "/" + page)
+      cy.visit("/" + page)
       break;
   }
 })
@@ -34,20 +35,28 @@ Cypress.Commands.add("createNewAddress", (type) => {
   cy.openAddressBookPage("addresses")
 })
 
-Cypress.Commands.add("signUpUser", (locators, user) => {
-  cy.get(locators.emailTxt).type(user.email)
+Cypress.Commands.add("signUpUser", (user) => {
+
+  cy.get(signUplocators.emailTxt).type(user.email)
   if (user.password != "") {
-    cy.get(locators.passwordTxt).type(user.password)
+    cy.get(signUplocators.passwordTxt).type(user.password)
   }
-  cy.get(locators.submitBtn).contains("Sign up").click()
+  cy.get(signUplocators.submitBtn).contains("Sign up").click()
 })
 
 Cypress.Commands.add("signInUser", (userCredentials) => {
+  /* Due to a possible issue in how cypress handles cookies, clearing 
+  then manually before signing in
+  */
+  cy.window().then((win) => {
+    win.sessionStorage.clear()
+  })
+  cy.reload()
   cy.clearCookies()
   cy.fixture('../fixtures/data/userData.json').as('data')
   cy.openAddressBookPage("sign_in")
   cy.get('@data').then((dataValues) => {
-    if(userCredentials != undefined){
+    if (userCredentials != undefined) {
       dataValues = userCredentials
     }
     cy.get(signInlocators.emailTxt).type(dataValues.email)

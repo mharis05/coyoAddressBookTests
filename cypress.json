@@ -3,5 +3,5 @@
   "viewportWidth": 1280,
   "viewportHeight": 720,
   "video": false,
-  "animationDistanceThreshold": 100
+  "watchForFileChanges": false
 }
