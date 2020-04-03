@@ -1,5 +1,11 @@
 import * as editDetailsLocators from '../fixtures/locators/addressDetailLocators'
 import { createAddressData } from '../support/customMethods'
+
+
+/*
+Tests for Edit Address Listing feature
+*/
+
 describe('Edit an Address Listing Tests', function(){
   let addressId
   let editAddressTexts

@@ -1,7 +1,7 @@
 var faker = require('faker')
 var signUplocators = require('../fixtures/locators/registrationPageLocators')
 
-
+// Generate fake data for a new user
 export function createNewUser(emailType = 'valid', passwordType = 'valid') {
   var firstName = faker.name.firstName().trim()
   var lastName = faker.name.lastName().trim()
@@ -16,28 +16,7 @@ export function createNewUser(emailType = 'valid', passwordType = 'valid') {
   }
 }
 
-// export function createNewTestUser() {
-//   var newUser = createNewUser('valid','valid')
-
-//   cy.readFile('./cypress/fixtures/data/userData.json').then(($file) => {
-//     $file.firstName = newUser.firstName
-//     $file.lastName = newUser.lastName
-//     $file.email = newUser.email
-//     $file.password = newUser.password
-//     console.log("Writing to file")
-//   cy.writeFile('./cypress/fixtures/data/userData.json',
-//     {
-//       lastName: newUser.lastName,
-//       firstName: newUser.firstName,
-//       email: newUser.email,
-//       password: newUser.password
-//     })
-//   })
-//   cy.openAddressBookPage("sign_up")
-//   cy.signUpUser(signUplocators, newUser)
-  
-// }
-
+// Generate fake data for a new address 
 export function createAddressData(type) {
   var addressData = {
 
@@ -54,11 +33,14 @@ export function createAddressData(type) {
       // For birthday
       var start = new Date(1900, 0, 1)
       var end = new Date()
+
       // create object for required data
       var required = this.requiredData()
+
       return {
         //destructure object
         ...required,
+
         //optional
         address2: faker.address.streetName(false),
         state: faker.address.state(),
@@ -83,10 +65,12 @@ export function createAddressData(type) {
 
 }
 
+// Required for generating birthday
 function randomDate(start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
 }
 
+// Random selection for interest
 function selectInterest(min, max) {
   var selection = Math.floor(
     Math.random() * (max - min) + min
@@ -94,6 +78,7 @@ function selectInterest(min, max) {
   return selection
 }
 
+// Create a new email for a user
 export function createEmail(type, firstName, lastName) {
   if (type == "valid") {
     return firstName.trim().toLowerCase() + lastName.trim().toLowerCase() + "@testemail.com"
@@ -102,6 +87,7 @@ export function createEmail(type, firstName, lastName) {
   }
 }
 
+// Create password for user
 export function createPassword(type) {
   if (type == "valid") {
     return "validPassword123"
@@ -110,7 +96,7 @@ export function createPassword(type) {
   }
 }
 
-
+// Sign up a new user
 export function registerNewUser() {
   cy.openAddressBookPage("sign_up")
   var user = createNewUser()

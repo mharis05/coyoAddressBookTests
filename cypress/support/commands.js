@@ -2,6 +2,14 @@ import * as signInlocators from '../fixtures/locators/signInPageLocators'
 import * as newAddressPageLocators from '../fixtures/locators/newAddressPageLocators'
 import { createAddressData } from './customMethods'
 
+
+/*
+
+This file contains several helper/support methods that can be used across
+the test framwork to increase code reusability and readability
+
+*/
+
 Cypress.Commands.add("setViewPort", () => {
   cy.viewport(screen.width, screen.height)
 })

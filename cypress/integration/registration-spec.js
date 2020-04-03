@@ -1,6 +1,10 @@
 import * as locators from '../fixtures/locators/registrationPageLocators'
 import { createNewUser } from '../support/customMethods'
 
+/*
+Tests for Sign Up feature
+*/
+
 describe('Tests for Sign Up module', function () {
   let signUpPageTexts
 
@@ -49,7 +53,7 @@ describe('Tests for Sign Up module', function () {
     cy.get(locators.signInTopLabel).should('have.text', signUpPageTexts.signInLinkText)
   })
 
-  it.only('Validate that registered user can sign in when their credentials', function(){
+  it('Validate that registered user can sign in when their credentials', function(){
     var user = createNewUser()
     cy.signUpUser(locators, user)
     cy.signInUser({email: user.email, password: user.password})

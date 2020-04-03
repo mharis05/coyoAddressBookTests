@@ -1,6 +1,11 @@
 import { createAddressData } from '../support/customMethods'
 import * as addressListLocators from '../fixtures/locators/addressListPageLocators'
 
+/*
+Tests for Address List feature
+*/
+
+
 describe('Tests for Address List', function () {
   let addressListTexts
 

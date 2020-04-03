@@ -1,5 +1,8 @@
 import * as locators from '../fixtures/locators/welcomePageLocators'
-import { createNewTestUser } from '../support/customMethods'
+
+/*
+Tests for Welcome Page feature for unregistered users.
+*/
 
 let homePageTexts
 describe("Welcome Page Tests", function () {

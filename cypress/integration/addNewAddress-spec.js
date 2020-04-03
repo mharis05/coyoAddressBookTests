@@ -2,6 +2,10 @@ import * as locators from '../fixtures/locators/newAddressPageLocators'
 import * as addressDetailsLocators from '../fixtures/locators/addressDetailLocators'
 import { createAddressData } from '../support/customMethods'
 
+/*
+Tests for adding new address to the address book
+*/
+
 describe("Add new Address Tests", function () {
   let newAddressPageTexts
 

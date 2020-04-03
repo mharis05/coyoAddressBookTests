@@ -1,6 +1,10 @@
 import * as locators from '../fixtures/locators/loggedInWelcomePageLocators'
 
-describe('Address Book Module Tests', function () {
+/*
+Tests for Welcome page feature for logged in Users
+*/
+
+describe('Welcome ', function () {
   let welcomePageTexts
 
   before(function () {

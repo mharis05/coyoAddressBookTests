@@ -2,8 +2,13 @@ import * as addressDetailsLocators from '../fixtures/locators/addressDetailLocat
 import { createAddressData } from '../support/customMethods'
 import { stateMapping } from '../fixtures/data/stateAbbrev'
 
-let addressDetailsTexts
+/*
+Tests for Address details feature
+*/
+
 describe('Address Detail Tests', function () {
+
+  let addressDetailsTexts
   before(function () {
     cy.fixture('data/expectedTexts.json').then(function (jsonData) {
       addressDetailsTexts = jsonData.addressDetailsPage
@@ -37,19 +42,19 @@ describe('Address Detail Tests', function () {
     cy.assertTextEquivalence(addressDetailsLocators.notetValue, addressData.note)
   })
 
-  it('Validate that a user can open Edit listing page from Address details', function(){
+  it('Validate that a user can open Edit listing page from Address details', function () {
     var addressData = createAddressData('required')
     cy.enterAddressData('required', addressData)
     cy.get(addressDetailsLocators.editLink)
-    .should('have.text', addressDetailsTexts.editLink)
-    .and('have.attr', 'href').and('include', '/edit')
+      .should('have.text', addressDetailsTexts.editLink)
+      .and('have.attr', 'href').and('include', '/edit')
   })
 
-  it('Validate that a user can open Address listings page from Address details', function(){
+  it('Validate that a user can open Address listings page from Address details', function () {
     var addressData = createAddressData('required')
     cy.enterAddressData('required', addressData)
     cy.get(addressDetailsLocators.listLink)
-    .should('have.text', addressDetailsTexts.listLink)
-    .and('have.attr', 'href').and('include', '/addresses')
+      .should('have.text', addressDetailsTexts.listLink)
+      .and('have.attr', 'href').and('include', '/addresses')
   })
 })

@@ -1,7 +1,12 @@
 import * as locators from '../fixtures/locators/signInPageLocators'
 import {userAccountLabel} from '../fixtures/locators/registrationPageLocators'
+import {signOutTopLabel} from '../fixtures/locators/loggedInWelcomePageLocators'
 
-describe('Autentication Module Tests', function () {
+/*
+Tests for Sign In and Sign out (Authentication) features.
+*/
+
+describe('Autentication Tests', function () {
   let signInPageTexts
   let userData
 
@@ -54,6 +59,12 @@ describe('Autentication Module Tests', function () {
     cy.get(locators.submitBtn).click().then(() => {
       cy.get(locators.errorMessage).should('have.text', signInPageTexts.signInErrorText)
     })
+  })
+
+  it('Validates that user can sign out of the address book app', function(){
+    cy.signInUser()
+    cy.get(signOutTopLabel).click()
+    cy.url().should('include','/sign_in')
   })
 
 })
