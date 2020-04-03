@@ -17,3 +17,8 @@ E2E Test suite built on Cypress.io using nodeJS
 
 ### To run using Cypress UI:
 - run`npx cypress open` and select specs from there.
+
+## Changing config:
+- Base URL can be updated in `cypress.json` in project root
+- Locators for Web elements can be found for each page in `./cypress/fixtures/locators` folder
+- Expected data for text validation can be updated/added in `./cypress/fixtures/data/expectedTexts.json`
